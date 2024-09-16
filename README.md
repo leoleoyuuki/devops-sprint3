@@ -3,7 +3,8 @@
 Este projeto é um WebApp Spring Boot usando MVC com Thymeleaf para gerenciamento de empresas. Ele foi containerizado usando Docker e está sendo executado no Azure.
 
 ## Vídeo Youtube
-    - [Video Demonstração](https://youtu.be/WgJezOZBIFg)
+[Video Demonstração Spring on Azure](https://youtu.be/WgJezOZBIFg)
+
 
 ## Tecnologias Utilizadas
 
