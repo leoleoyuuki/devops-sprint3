@@ -1,6 +1,10 @@
 # Challenge3 App
 
-Este projeto é um WebApp Spring Boot usando MVC com Thymeleaf para gerenciamento de empresas. Ele foi containerizado usando Docker e está sendo executado no Azure.
+Este projeto é um WebApp Spring Boot utilizando a arquitetura MVC com Thymeleaf, voltado para o gerenciamento de empresas. Ele permite o cadastro, edição e visualização de dados empresariais, facilitando o controle de informações como nome, setor de atuação, tamanho, localização geográfica, número de funcionários e outras características relevantes.
+
+O aplicativo foi containerizado usando Docker, o que possibilita um ambiente padronizado para execução e facilita a implantação em diferentes plataformas. No caso deste projeto, o deploy está sendo feito na Azure, aproveitando a infraestrutura escalável da nuvem, garantindo que o sistema esteja sempre disponível para os usuários.
+
+
 
 ## Vídeo Youtube
 [Video Demonstração Spring on Azure](https://youtu.be/WgJezOZBIFg)
