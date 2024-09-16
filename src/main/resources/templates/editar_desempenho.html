@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <title>Editar Desempenho Financeiro</title>
+    <style>
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .invalid-feedback {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <h1 class="mb-4 text-center">Editar Desempenho Financeiro</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 form-container">
+            <form th:action="@{/desempenho/{id}/editar(id=${desempenho.id})}" method="post" th:object="${desempenho}">
+
+                <!-- Campo oculto para ID da Empresa -->
+                <input type="hidden" th:field="*{empresa.id}">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('empresa.id')}" th:errors="*{empresa.id}"></div>
+
+                <!-- Receita -->
+                <div class="mb-3">
+                    <label for="receita" class="form-label">Qual é a receita total?</label>
+                    <input type="number" step="0.01" class="form-control" id="receita" th:field="*{receita}" th:errorclass="is-invalid" placeholder="Digite a receita"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('receita')}" th:errors="*{receita}"></div>
+                </div>
+
+                <!-- Lucro -->
+                <div class="mb-3">
+                    <label for="lucro" class="form-label">Qual foi o lucro em reais (R$)?</label>
+                    <input type="number" step="0.01" class="form-control" id="lucro" th:field="*{lucro}" th:errorclass="is-invalid" placeholder="Digite o lucro"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lucro')}" th:errors="*{lucro}"></div>
+                </div>
+
+                <!-- Crescimento -->
+                <div class="mb-3">
+                    <label for="crescimento" class="form-label">Qual foi o crescimento percentual?</label>
+                    <input type="number" step="0.01" class="form-control" id="crescimento" th:field="*{crescimento}" th:errorclass="is-invalid" placeholder="Digite o crescimento percentual"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('crescimento')}" th:errors="*{crescimento}"></div>
+                </div>
+
+                <!-- Botões -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                    <a class="btn btn-secondary" th:href="@{/empresas/{id}/detalhes(id=${desempenho.empresa?.id})}">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
+

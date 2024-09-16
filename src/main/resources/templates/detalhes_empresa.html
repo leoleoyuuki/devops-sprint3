@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <title>Detalhes da Empresa</title>
+    <style>
+        .card-content dl dt {
+            font-weight: bold;
+        }
+        .secondary-content form {
+            display: inline-block;
+        }
+        .card-action a, .card-action button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="center-align">Detalhes da Empresa</h1>
+
+    <!-- Informações Gerais -->
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Informações Gerais</span>
+            <dl>
+                <dt>Nome:</dt>
+                <dd th:text="${empresa.nome}"></dd>
+                <dt>Tamanho:</dt>
+                <dd th:text="${empresa.tamanho}"></dd>
+                <dt>Setor:</dt>
+                <dd th:text="${empresa.setor}"></dd>
+                <dt>Localização:</dt>
+                <dd th:text="${empresa.localizacaoGeografica}"></dd>
+                <dt>Número de Funcionários:</dt>
+                <dd th:text="${empresa.numeroFuncionarios}"></dd>
+                <dt>Tipo de Empresa:</dt>
+                <dd th:text="${empresa.tipoEmpresa.getDescricao()}"></dd>
+                <dt>Cliente:</dt>
+                <dd th:text="${empresa.cliente}"></dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Lista de Tendências de Gastos -->
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Tendências de Gastos</span>
+            <div class="collection">
+                <a href="#" class="collection-item active">Ano: 2024</a>
+                <div th:each="tendencia : ${empresa.tendencias}">
+                    <p class="collection-item">
+                        <span th:text="'Ano: ' + ${tendencia.ano}"></span><br>
+                        <span th:text="'Gasto em Marketing: R$ ' + ${tendencia.gastoMarketing}"></span><br>
+                        <span th:text="'Gasto em Automação: R$ ' + ${tendencia.gastoAutomacao}"></span><br>
+                    </p>
+                    <div class="secondary-content">
+                        <a class="btn-small waves-effect waves-light orange" th:href="@{/tendencias/{id}/editar(id=${tendencia.id})}">Editar</a>
+                        <form th:action="@{/tendencias/{id}/remover(id=${tendencia.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja deletar esta tendência?');">
+                            <button type="submit" class="btn-small waves-effect waves-light red">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a class="btn waves-effect waves-light green" th:if="${showCreateButtonTendencia}" th:href="@{/tendencias/nova(idEmpresa=${empresa.id})}">Criar Nova Tendência de Gastos</a>
+        </div>
+    </div>
+
+    <!-- Lista de Desempenho Financeiro -->
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Desempenho Financeiro</span>
+            <div class="collection">
+                <a href="#" class="collection-item active">Ano: 2024</a>
+                <div th:each="desempenho : ${empresa.desempenhos}">
+                    <p class="collection-item">
+                        <span th:text="'Receita: R$ ' + ${desempenho.receita}"></span><br>
+                        <span th:text="'Lucro: R$ ' + ${desempenho.lucro}"></span><br>
+                        <span th:text="'Crescimento: ' + ${desempenho.crescimento} + '%'"></span><br>
+                    </p>
+                    <div class="secondary-content">
+                        <a class="btn-small waves-effect waves-light orange" th:href="@{/desempenho/{id}/editar(id=${desempenho.id})}">Editar</a>
+                        <form th:action="@{/desempenho/{id}/remover(id=${desempenho.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este desempenho?');">
+                            <button type="submit" class="btn-small waves-effect waves-light red">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a class="btn waves-effect waves-light green" th:if="${showCreateButtonDesempenho}" th:href="@{/desempenho/novo(idEmpresa=${empresa.id})}">Criar Novo Desempenho Financeiro</a>
+        </div>
+    </div>
+
+    <!-- Lista de Histórico de Interações -->
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Histórico de Interações</span>
+            <div class="collection">
+                <a href="#" class="collection-item active">Ano: 2024</a>
+                <div th:each="historico : ${empresa.historicos}">
+                    <p class="collection-item">
+                        <span th:text="'Contrato Assinado: ' + ${historico.contratoAssinado}"></span><br>
+                        <span th:text="'Proposta de Negócio: ' + ${historico.propostaNegocio}"></span><br>
+                        <span th:text="'Feedback: ' + ${historico.feedbackServicosProdutos}"></span><br>
+                    </p>
+                    <div class="secondary-content">
+                        <a class="btn-small waves-effect waves-light orange" th:href="@{/historico/{id}/editar(id=${historico.id})}">Editar</a>
+                        <form th:action="@{/historico/{id}/remover(id=${historico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este histórico?');">
+                            <button type="submit" class="btn-small waves-effect waves-light red">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a class="btn waves-effect waves-light green" th:if="${showCreateButtonHistorico}" th:href="@{/historico/novo(idEmpresa=${empresa.id})}">Criar Novo Histórico de Interação</a>
+        </div>
+    </div>
+
+    <!-- Lista de Comportamento de Negócios -->
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Comportamento de Negócios</span>
+            <div class="collection">
+                <a href="#" class="collection-item active">Ano: 2024</a>
+                <div th:each="comportamento : ${empresa.comportamentos}">
+                    <p class="collection-item">
+                        <span th:text="'Interações na Plataforma: ' + ${comportamento.interacoesPlataforma}"></span><br>
+                        <span th:text="'Frequência de Uso: ' + ${comportamento.frequenciaUso}"></span><br>
+                        <span th:text="'Feedback: ' + ${comportamento.feedback}"></span><br>
+                        <span th:text="'Uso de Recursos Específicos: ' + ${comportamento.usoRecursosEspecificos}"></span><br>
+                    </p>
+                    <div class="secondary-content">
+                        <a class="btn-small waves-effect waves-light orange" th:href="@{/comportamento/{id}/editar(id=${comportamento.id})}">Editar</a>
+                        <form th:action="@{/comportamento/{id}/remover(id=${comportamento.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este comportamento?');">
+                            <button type="submit" class="btn-small waves-effect waves-light red">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a class="btn waves-effect waves-light green" th:if="${showCreateButtonComportamento}" th:href="@{/comportamento/novo(idEmpresa=${empresa.id})}">Criar Novo Comportamento de Negócio</a>
+        </div>
+    </div>
+
+    <a class="btn waves-effect waves-light blue" href="/empresas">Voltar para a lista</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Editar Comportamento de Negócios</title>
+    <style>
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .invalid-feedback {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Editar Comportamento de Negócios</h1>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 form-container">
+            <form th:action="@{/comportamento/{id}/editar(id=${comportamento.id})}" th:object="${comportamento}" method="post">
+
+                <!-- Interações na Plataforma -->
+                <div class="mb-3">
+                    <label for="interacoesPlataforma" class="form-label">Quantas interações a empresa teve na plataforma?</label>
+                    <input type="number" class="form-control" id="interacoesPlataforma" th:field="*{interacoesPlataforma}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('interacoesPlataforma')}" th:errors="*{interacoesPlataforma}"></div>
+                </div>
+
+                <!-- Frequência de Uso -->
+                <div class="mb-3">
+                    <label for="frequenciaUso" class="form-label">Qual a frequência de uso da plataforma? (Em uma escala de 1 a 10)</label>
+                    <input type="number" class="form-control" id="frequenciaUso" th:field="*{frequenciaUso}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('frequenciaUso')}" th:errors="*{frequenciaUso}"></div>
+                </div>
+
+                <!-- Feedback -->
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Comentários e feedback sobre a plataforma</label>
+                    <textarea class="form-control" id="feedback" th:field="*{feedback}" rows="3" th:errorclass="is-invalid"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('feedback')}" th:errors="*{feedback}"></div>
+                </div>
+
+                <!-- Uso de Recursos Específicos -->
+                <div class="mb-3">
+                    <label for="usoRecursosEspecificos" class="form-label">Você utiliza algum recurso específico?</label>
+                    <select id="usoRecursosEspecificos" th:field="*{usoRecursosEspecificos}" class="form-select" th:errorclass="is-invalid">
+                        <option value="" disabled>Selecione uma opção</option>
+                        <option th:each="opcao : ${opcoesRecursos}" th:value="${opcao.name()}" th:text="${opcao.descricao}" th:selected="${opcao == 'SIM'}"></option>
+                    </select>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('usoRecursosEspecificos')}" th:errors="*{usoRecursosEspecificos}"></div>
+                </div>
+
+                <!-- Campo oculto para ID da Empresa -->
+                <input type="hidden" th:field="*{empresa.id}">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('empresa.id')}" th:errors="*{empresa.id}"></div>
+
+                <!-- Botões -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a class="btn btn-secondary mt-2" th:href="@{/empresas/{id}/detalhes(id=${comportamento.empresa.id})}">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+RM:99119    NOME:Leonardo Blanco    TURMA:2TDSPL
+RM:550373   NOME:Leonardo Yuuki     TURMA:2TDSPL
+RM:98082    NOME:Paulo Henrique     TURMA:2TDSPL
+RM:97999    NOME:Gustavo Morreira   TURMA:2TDSPL
+RM:552184   NOME:Daniel Soares      TURMA:2TDSPL

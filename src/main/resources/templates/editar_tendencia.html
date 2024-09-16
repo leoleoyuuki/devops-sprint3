@@ -1,0 +1,84 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Editar Tendência de Gastos</title>
+
+    <style>
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .invalid-feedback {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <h1 class="mb-4 text-center">Editar Tendência de Gastos</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 form-container">
+            <form th:action="@{/tendencias/{id}/editar(id=${tendencia.id})}" method="post" th:object="${tendencia}">
+
+                <!-- Campo oculto para ID da Empresa -->
+                <input type="hidden" th:field="*{empresa.id}">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('empresa.id')}" th:errors="*{empresa.id}"></div>
+
+                <!-- Ano -->
+                <div class="mb-3">
+                    <label for="ano" class="form-label">Ano:</label>
+                    <input type="number" class="form-control" id="ano" th:field="*{ano}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}"></div>
+                </div>
+
+                <!-- Gasto em Marketing -->
+                <div class="mb-3">
+                    <label for="gastoMarketing" class="form-label">Gasto em Marketing (R$):</label>
+                    <input type="number" step="0.01" class="form-control" id="gastoMarketing" th:field="*{gastoMarketing}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('gastoMarketing')}" th:errors="*{gastoMarketing}"></div>
+                </div>
+
+                <!-- Gasto em Automação -->
+                <div class="mb-3">
+                    <label for="gastoAutomacao" class="form-label">Gasto em Automação (R$):</label>
+                    <input type="number" step="0.01" class="form-control" id="gastoAutomacao" th:field="*{gastoAutomacao}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('gastoAutomacao')}" th:errors="*{gastoAutomacao}"></div>
+                </div>
+
+                <!-- Botões -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                    <a class="btn btn-secondary" th:href="@{/empresas/{id}/detalhes(id=${tendencia.empresa?.id})}">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

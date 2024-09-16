@@ -1,0 +1,85 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Editar Empresa</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Editar Empresa</h1>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form th:action="@{/empresas/{id}/editar(id=${empresa.id})}" method="post" th:object="${empresa}">
+
+                <!-- Nome -->
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" th:field="*{nome}" th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
+
+                <!-- Tamanho -->
+                <div class="mb-3">
+                    <label for="tamanho" class="form-label">Tamanho</label>
+                    <select class="form-select" id="tamanho" th:field="*{tamanho}" th:errorclass="is-invalid">
+                        <option th:each="tamanho : ${lista_tamanhos}" th:value="${tamanho}" th:text="${tamanho}" th:selected="${tamanho == empresa.tamanho}"></option>
+                    </select>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tamanho')}" th:errors="*{tamanho}"></div>
+                </div>
+
+                <!-- Setor -->
+                <div class="mb-3">
+                    <label for="setor" class="form-label">Setor</label>
+                    <select class="form-select" id="setor" th:field="*{setor}" th:errorclass="is-invalid">
+                        <option th:each="setor : ${lista_setores}" th:value="${setor}" th:text="${setor}" th:selected="${setor == empresa.setor}"></option>
+                    </select>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('setor')}" th:errors="*{setor}"></div>
+                </div>
+
+                <!-- Localização Geográfica -->
+                <div class="mb-3">
+                    <label for="localizacaoGeografica" class="form-label">Localização Geográfica</label>
+                    <input type="text" class="form-control" id="localizacaoGeografica" th:field="*{localizacaoGeografica}" th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('localizacaoGeografica')}" th:errors="*{localizacaoGeografica}"></div>
+                </div>
+
+                <!-- Número de Funcionários -->
+                <div class="mb-3">
+                    <label for="numeroFuncionarios" class="form-label">Número de Funcionários</label>
+                    <input type="number" class="form-control" id="numeroFuncionarios" th:field="*{numeroFuncionarios}" th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroFuncionarios')}" th:errors="*{numeroFuncionarios}"></div>
+                </div>
+
+                <!-- Tipo de Empresa -->
+                <div class="mb-3">
+                    <label for="tipoEmpresa" class="form-label">Tipo de Empresa</label>
+                    <select class="form-select" id="tipoEmpresa" th:field="*{tipoEmpresa}" th:errorclass="is-invalid">
+                        <option th:each="tipo : ${lista_tipos}" th:value="${tipo.name()}" th:text="${tipo.descricao}"></option>
+                    </select>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tipoEmpresa')}" th:errors="*{tipoEmpresa}"></div>
+                </div>
+
+                <!-- Cliente -->
+                <div class="mb-3">
+                    <label for="cliente" class="form-label">Cliente</label>
+                    <input type="checkbox" class="form-check-input" id="cliente" th:field="*{cliente}">
+                </div>
+
+                <!-- Botões -->
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a class="btn btn-secondary" href="/empresas">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
